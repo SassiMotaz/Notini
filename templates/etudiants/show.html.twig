@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="container mt-4">{{etudiants.prenom |upper}}
+		{{etudiants.nom  |upper}}</h1>
+	<div class="container mt-3">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Code Inscrit</th>
+					<th scope="col">Nom Etudiant</th>
+					<th scope="col">Prenom Etudiant</th>
+					<th scope="col">CIN Etudiant</th>
+					<th scope="col">Email Etudiant</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{etudiants.codeins}}</td>
+					<td>{{etudiants.nom}}</td>
+					<td>{{etudiants.Prenom}}</td>
+					<td>{{etudiants.CIN}}</td>
+					<td>{{etudiants.email}}</td>
+					<td>
+						<button type="button" class="btn btn-outline-primary ">
+							<i href="" class="bi bi-eye"></i>
+						</button>
+						<button type="button" class="btn btn-primary">
+							<i href="" class="bi bi-pencil-square"></i>
+						</button>
+						<button type="button" class="btn btn-outline-danger">
+							<i href="" class="bi bi-person-x"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>{% endblock %}
