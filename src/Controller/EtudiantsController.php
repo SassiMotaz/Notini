@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etudiants;
 use App\Form\EtudiantsType;
-use Doctrine\ORM\EntityManager;
+use App\Repository\EtudiantsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,16 +73,16 @@ class EtudiantsController extends AbstractController
         return $this->redirectToRoute('app_etudiants');
         
     }
-    /**
-     * @Route("Route", name="RouteName")
-     */
-    public function search(): Response
+    #[Route('/etudiants/search',name:'app_search_etudiant')]
+    public function search(Request $request ,EtudiantsRepository $sr  ) : Response
     {
-        return $this->render('$0.html.twig', []);
+        $keyword = $request->get('keyword');
+        $etudiant = $sr->search($keyword);
+        return $this->render('etudiants/search.html.twig',
+         [
+        'etudiants' => $etudiant,
+        ]);
+        
     }
-
-
-    
-
-
 }
+

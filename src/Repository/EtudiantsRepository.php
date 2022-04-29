@@ -3,10 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Etudiants;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\BrowserKit\Response;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 /**
  * @method Etudiants|null find($id, $lockMode = null, $lockVersion = null)
@@ -45,10 +47,23 @@ class EtudiantsRepository extends ServiceEntityRepository
         }
     }
 
+      
+    public function search(String $keyword)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.nom LIKE :val')
+            ->setParameter('val', '%'.$keyword.'%')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
     // /**
     //  * @return Etudiants[] Returns an array of Etudiants objects
     //  */
-    /*
+    
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('e')
@@ -60,7 +75,7 @@ class EtudiantsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Etudiants
