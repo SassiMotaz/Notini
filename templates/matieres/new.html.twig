@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Matieres{% endblock %}
+
+{% block body %}
+    <h1>Create new Matieres</h1>
+
+    {{ include('matieres/_form.html.twig') }}
+
+    <a class="btn btn-primary mt-2" href="{{ path('app_matieres_index') }}">back to list</a>
+{% endblock %}

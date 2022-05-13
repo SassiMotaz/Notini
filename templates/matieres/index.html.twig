@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matieres index{% endblock %}
+
+{% block body %}
+    <h1>Matieres index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code_mat</th>
+                <th>Designation</th>
+                <th>Coefficient</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matiere in matieres %}
+            <tr>
+                <td>{{ matiere.id }}</td>
+                <td>{{ matiere.codeMat }}</td>
+                <td>{{ matiere.designation }}</td>
+                <td>{{ matiere.coefficient }}</td>
+                <td>
+                    <a class="btn btn-primary mt-2" href="{{ path('app_matieres_show', {'id': matiere.id}) }}">show</a>
+                    <a class="btn btn-primary mt-2" href="{{ path('app_matieres_edit', {'id': matiere.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary mt-2" href="{{ path('app_matieres_new') }}">Create new</a>
+{% endblock %}

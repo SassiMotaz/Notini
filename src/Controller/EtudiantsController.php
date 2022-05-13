@@ -58,10 +58,12 @@ class EtudiantsController extends AbstractController
         ]);
     }
     #[Route('/etudiants/{cin}/show',name:'app_show_etudiant')]
-    public function show(Etudiants $etudiant): Response
+    public function show(Etudiants $etudiant , EntityManagerInterface $em): Response
     {
+        $matiers = $etudiant->getMatiers();
         return $this->render('etudiants/show.html.twig', [
             'etudiants'=> $etudiant ,
+            'matiers'=>$matiers
         ]);
     }
     #[Route('/etudiants/{cin}/delete',name:'app_delete_etudiant')]

@@ -26,6 +26,9 @@
 					<td>{{etudiants.Prenom}}</td>
 					<td>{{etudiants.CIN}}</td>
 					<td>{{etudiants.email}}</td>
+					{% for item in matiers %}
+						<td>{{item.designation}}</td>
+					{% endfor %}
 					<td>
 						<button type="button" class="btn btn-outline-primary ">
 							<i href="" class="bi bi-eye"></i>

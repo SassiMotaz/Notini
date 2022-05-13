@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\EtudiantsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
+use App\Repository\EtudiantsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: EtudiantsRepository::class)]
 class Etudiants
@@ -30,6 +33,16 @@ class Etudiants
 
     #[ORM\Column(type: 'string', length: 255)]
     private $mdp;
+
+   
+
+    #[ORM\ManyToMany(targetEntity: Matieres::class, inversedBy: 'etudiants')]
+    private $Matiers;
+
+    public function __construct()
+    {
+        $this->Matiers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +117,30 @@ class Etudiants
     public function setMdp(string $mdp): self
     {
         $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Matieres>
+     */
+    public function getMatiers(): Collection
+    {
+        return $this->Matiers;
+    }
+
+    public function addMatier(Matieres $matier): self
+    {
+        if (!$this->Matiers->contains($matier)) {
+            $this->Matiers[] = $matier;
+        }
+
+        return $this;
+    }
+
+    public function removeMatier(Matieres $matier): self
+    {
+        $this->Matiers->removeElement($matier);
 
         return $this;
     }
