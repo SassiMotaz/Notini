@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+{{ form_row(form.typedeepreuve) }}
+{{ form_row(form.moy) }}
+{{ form_row(form.matieres,{'label':'Matières','attr': {'class': 'form-select'}}) }}
+{{ form_row(form.etudiants,{'label':'Etudiants','attr': {'class': 'form-select'}}) }}
+<button class="btn btn-primary mt-3">{{ button_label|default('Enregistrer') }}</button>
+<a type="button" class="btn btn-outline-primary mt-3" href="{{ path('app_note_index') }}">Retour à la liste</a>
+
+{{ form_end(form) }}

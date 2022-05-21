@@ -51,14 +51,13 @@ class EtudiantsRepository extends ServiceEntityRepository
     public function search(String $keyword)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.nom LIKE :val')
+            ->andWhere('s.cin LIKE :val')
             ->setParameter('val', '%'.$keyword.'%')
             ->orderBy('s.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-
 
     // /**
     //  * @return Etudiants[] Returns an array of Etudiants objects

@@ -39,11 +39,18 @@ class Etudiants
     #[ORM\ManyToMany(targetEntity: Matieres::class, inversedBy: 'etudiants')]
     private $Matiers;
 
+    #[ORM\OneToMany(mappedBy: 'etudiants', targetEntity: Note::class)]
+    private $notes;
+
     public function __construct()
     {
         $this->Matiers = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
-
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +148,36 @@ class Etudiants
     public function removeMatier(Matieres $matier): self
     {
         $this->Matiers->removeElement($matier);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setEtudiants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getEtudiants() === $this) {
+                $note->setEtudiants(null);
+            }
+        }
 
         return $this;
     }

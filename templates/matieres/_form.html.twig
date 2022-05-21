@@ -2,6 +2,7 @@
 <div class="container">
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn btn-primary mt-2">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-primary mt-2">{{ button_label|default('Enregistrer') }}</button>
+    <a class="btn btn-primary mt-2 mx-2" href="{{ path('app_matieres_index') }}">Retour à la liste</a>
 {{ form_end(form) }}
 </div>

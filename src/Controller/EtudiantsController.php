@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Etudiants;
+use App\Entity\Matieres;
+use App\Entity\Note;
 use App\Form\EtudiantsType;
 use App\Repository\EtudiantsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,12 +60,14 @@ class EtudiantsController extends AbstractController
         ]);
     }
     #[Route('/etudiants/{cin}/show',name:'app_show_etudiant')]
-    public function show(Etudiants $etudiant , EntityManagerInterface $em): Response
+    public function show(Etudiants $etudiant , EntityManagerInterface $em  ): Response
     {
         $matiers = $etudiant->getMatiers();
+        $note = $etudiant->getNotes();
         return $this->render('etudiants/show.html.twig', [
             'etudiants'=> $etudiant ,
-            'matiers'=>$matiers
+            'matiers'=>$matiers,
+            'note'=>$note,
         ]);
     }
     #[Route('/etudiants/{cin}/delete',name:'app_delete_etudiant')]
@@ -86,5 +90,18 @@ class EtudiantsController extends AbstractController
         ]);
         
     }
+    #[Route('/etudiants/{cin}/shownote',name:'app_shownote_etudiant')]
+    public function shownote(Etudiants $etudiant ,Request $request ,EtudiantsRepository $sr  ) : Response
+    {
+        $note = $etudiant->getNotes();
+        return $this->render('etudiants/shownote.html.twig',
+         [
+        'etudiants' => $etudiant,
+        'note'=> $note
+        ]);
+        
+    }
+    
+    
 }
 

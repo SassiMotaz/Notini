@@ -3,9 +3,8 @@
 {% block title %}New Matieres{% endblock %}
 
 {% block body %}
-    <h1>Create new Matieres</h1>
-
+<div class="container mt-5">
+    <h1>Créer une nouvelle matière</h1>
     {{ include('matieres/_form.html.twig') }}
-
-    <a class="btn btn-primary mt-2" href="{{ path('app_matieres_index') }}">back to list</a>
+    </div>
 {% endblock %}

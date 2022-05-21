@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Note{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Créer une nouvelle note</h1>
+
+    {{ include('note/_form.html.twig') }}
+</div>
+{% endblock %}

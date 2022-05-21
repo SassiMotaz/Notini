@@ -26,7 +26,7 @@
 		<div class="col">
 			<a type="button" class="btn btn-success mt-2" href="{{path('app_new_etudiant')}}">Créer nouveau étudiant</a>
 		</div>
-		<table class="table mt-5">
+		<table class="table mt-3">
 			<thead>
 				<tr>
 					<th scope="col">Code Inscrit</th>
@@ -55,6 +55,9 @@
 							<a class="btn btn-outline-primary " href="{{path('app_delete_etudiant' ,{'cin':etudiant.cin})}}">
 								<i class="bi bi-person-x"></i>
 							</a>
+							<a class="btn btn-outline-primary " href="{{path('app_shownote_etudiant' ,{'cin':etudiant.cin})}}">
+								<i class="bi bi-journal-text"></i>
+							</a>
 						</td>
 					</tr>
 				{% endfor %}
@@ -73,4 +76,5 @@ $('#result').html(data);
 });
 }
 	</script>
+	
 {% endblock %}

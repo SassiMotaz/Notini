@@ -3,11 +3,12 @@
 {% block title %}Edit Matieres{% endblock %}
 
 {% block body %}
-    <h1>Edit Matieres</h1>
+<div class="container mt-5">
+    <h1> Modifier la matière</h1>
 
-    {{ include('matieres/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a class="btn btn-primary mt-2" href="{{ path('app_matieres_index') }}">back to list</a>
+    {{ include('matieres/_form.html.twig', {'button_label': 'Mise à jour'}) }}
 
     {{ include('matieres/_delete_form.html.twig') }}
+    
+    </div>
 {% endblock %}

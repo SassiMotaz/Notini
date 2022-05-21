@@ -42,6 +42,7 @@ class MatieresController extends AbstractController
     #[Route('/{id}', name: 'app_matieres_show', methods: ['GET'])]
     public function show(Matieres $matiere): Response
     {
+        
         return $this->render('matieres/show.html.twig', [
             'matiere' => $matiere,
         ]);

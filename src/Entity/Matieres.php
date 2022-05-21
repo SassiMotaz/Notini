@@ -27,10 +27,14 @@ class Matieres
     #[ORM\ManyToMany(targetEntity: Etudiants::class, mappedBy: 'Matiers')]
     private $etudiants;
 
+    #[ORM\OneToMany(mappedBy: 'matieres', targetEntity: Note::class)]
+    private $notes;
+
     public function __construct()
     {
 
         $this->etudiants = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
     public function __toString(): string
     {
@@ -99,6 +103,36 @@ class Matieres
     {
         if ($this->etudiants->removeElement($etudiant)) {
             $etudiant->removeMatier($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setMatieres($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getMatieres() === $this) {
+                $note->setMatieres(null);
+            }
         }
 
         return $this;

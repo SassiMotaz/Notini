@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="container mt-4">{{etudiants.prenom |upper}}
+		{{etudiants.nom  |upper}}</h1>
+	<div class="container mt-3">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+                <th>Id matières</th>
+                <th>Nom des matières</th>
+                <th>Type d'épreuve</th>
+                <th>Moyenne des matières</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for notes in note %}
+                        <tr>
+						<td>{{notes.id}}</td>
+                        <td>{{notes.matieres}}</td>
+                        <td>{{notes.typedeepreuve}}</td>
+                        <td>{{notes.moy}}</td>
+                        </tr>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>{% endblock %}
