@@ -34,7 +34,7 @@ class Etudiants
     #[ORM\Column(type: 'string', length: 255)]
     private $mdp;
 
-   
+  
 
     #[ORM\ManyToMany(targetEntity: Matieres::class, inversedBy: 'etudiants')]
     private $Matiers;
