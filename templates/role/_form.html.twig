@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    <div class="form-floating">
+    {{ form_row(form.users,{'label':'Matières','attr': {'class': 'form-control'}}) }}
+    </div>
+    <button class="btn btn-primary mt-3">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
