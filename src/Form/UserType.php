@@ -33,6 +33,12 @@ class UserType extends AbstractType
                     'class'=>'form-control'
                 ]
             ])
+            ->add('adr',TextType::class,[
+                'label'=>'Prenom',
+                'attr'=>[
+                    'class'=>'form-control'
+                ]
+            ])
         ;
     }
 

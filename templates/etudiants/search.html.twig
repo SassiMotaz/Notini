@@ -5,7 +5,7 @@
 		<td>{{etudiant.Prenom}}</td>
 		<td>{{etudiant.CIN}}</td>
 		<td>{{etudiant.email}}</td>
-		
+
 		<td>
 			<a class="btn btn-outline-primary " href="{{path('app_show_etudiant' ,{'cin':etudiant.cin})}}">
 				<i class="bi bi-eye"></i>
@@ -13,8 +13,11 @@
 			<a class="btn btn-outline-primary " href="{{path('app_edit_etudiant' ,{'cin':etudiant.cin})}}">
 				<i class="bi bi-pencil-square"></i>
 			</a>
-			<a class="btn btn-outline-primary " onclick="return confirm('Are you sure?')" href="{{path('app_delete_etudiant' ,{'cin':etudiant.cin})}}">
+			<a class="btn btn-outline-primary " href="{{path('app_delete_etudiant' ,{'cin':etudiant.cin})}}">
 				<i class="bi bi-person-x"></i>
+			</a>
+			<a class="btn btn-outline-primary " href="{{path('app_shownote_etudiant' ,{'cin':etudiant.cin})}}">
+				<i class="bi bi-journal-text"></i>
 			</a>
 		</td>
 	</tr>

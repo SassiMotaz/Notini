@@ -14,7 +14,7 @@ class RoleType extends AbstractType
     {
         $builder
             ->add('title',TextType::class,[
-                'label'=>'Title',
+                'label'=>'Titre',
                 'attr'=>[
                     'class'=>'form-control'
                 ]

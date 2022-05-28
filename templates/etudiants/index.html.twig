@@ -11,14 +11,14 @@
 		<div class="row">
 			<div class="col">
 				<h1>
-					Nos Étudiants
+					Liste des étudiants
 				</h1>
 			</div>
 			<div class="col mt-2">
-				<input class="form-control me-2" id="search" onkeyup="load()" type="text" placeholder="Search">
+				<input class="form-control me-2" id="search" onkeyup="load()" type="text" placeholder="Rechercher">
 			</div>
 			<div class="col mt-2">
-				<button class="btn btn-outline-success" onclick="load()" type="submit">Search</button>
+				<button class="btn btn-outline-success" onclick="load()" type="submit">Rechercher</button>
 			</div>
 		</div>
 	</div>
@@ -26,18 +26,17 @@
 		<div class="col">
 			<a type="button" class="btn btn-success mt-2" href="{{path('app_new_etudiant')}}">Créer nouveau étudiant</a>
 		</div>
-		<table class="table mt-3">
+		<table class="table mt-3 border">
 			<thead>
 				<tr>
-					<th scope="col">Code Inscrit</th>
-					<th scope="col">Nom Etudiant</th>
-					<th scope="col">Prenom Etudiant</th>
-					<th scope="col">CIN Etudiant</th>
-					<th scope="col">Email Etudiant</th>
-
+					<th scope="col">Code inscrit</th>
+					<th scope="col">Nom Étudiant</th>
+					<th scope="col">Prénom Étudiant</th>
+					<th scope="col">CIN Étudiant</th>
+					<th scope="col">Email Étudiant</th>
 				</tr>
 			</thead>
-			<tbody id="result">
+			<tbody id="result" class="border">
 				{% for etudiant in etudiants %}
 					<tr>
 						<td>{{etudiant.codeins}}</td>
@@ -52,7 +51,7 @@
 							<a class="btn btn-outline-primary " href="{{path('app_edit_etudiant' ,{'cin':etudiant.cin})}}">
 								<i class="bi bi-pencil-square"></i>
 							</a>
-							<a class="btn btn-outline-primary " href="{{path('app_delete_etudiant' ,{'cin':etudiant.cin})}}">
+							<a class="btn btn-outline-primary " onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?')" href="{{path('app_delete_etudiant' ,{'cin':etudiant.cin})}}">
 								<i class="bi bi-person-x"></i>
 							</a>
 							<a class="btn btn-outline-primary " href="{{path('app_shownote_etudiant' ,{'cin':etudiant.cin})}}">

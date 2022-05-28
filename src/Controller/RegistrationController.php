@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Etudiants;
 use App\Entity\User;
+use App\Form\RoleType;
+use App\Entity\Etudiants;
+use App\Entity\PasswordUpdate;
 use App\Security\EmailVerifier;
+use App\Form\PasswordUpdateType;
 use App\Form\RegistrationFormType;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Form\FormError;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -17,10 +21,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
-#[IsGranted('ROLE_SUPERADMIN')]
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
@@ -29,13 +33,14 @@ class RegistrationController extends AbstractController
     {
         $this->emailVerifier = $emailVerifier;
     }
+    #[IsGranted('ROLE_SUPERADMIN')]
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -56,6 +61,8 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
+            return $this->render('home/index.html.twig');
+            
             // do anything else you need here, like send an email
         }
 
@@ -63,9 +70,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-    
-
-
+    #[IsGranted('ROLE_SUPERADMIN')]    
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
@@ -84,5 +89,29 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_Home');
+    }
+    #[Route('compte/paswwordupdate', name: 'app_update_password')]
+    public function UpdatePassword(Request $request , UserPasswordHasherInterface $passwordEncoder,EntityManagerInterface $entityManager, UserInterface $user): Response
+    {
+        $passwordUpdate = new PasswordUpdate();
+        $user = $this->getUser();
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapé n'est pas votre mot de passe actuel ! "));
+            } else {
+                $newPassword = $passwordUpdate->getNewPassword();
+                $password = $passwordEncoder->hashPassword($user, $newPassword);
+         
+                $user->setPassword($password);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            return $this->redirectToRoute('app_logout');
+        }
+        return $this->render('compte/updatepass.html.twig',[
+            'form' => $form->createView(),
+        ]);
     }
 }

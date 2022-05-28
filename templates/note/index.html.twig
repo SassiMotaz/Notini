@@ -1,38 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Note index{% endblock %}
+{% block title %}Note index
+{% endblock %}
 
 {% block body %}
- <div class="container mt-5">
+	<div class="container mt-5">
 
-    <h1>Liste des notes</h1>
+		<h1>Liste des notes</h1>
+		<a type="button" class="btn btn-success mt-2" href="{{ path('app_note_new') }}">Créer un nouveau</a>
+		<table class="table mt-2 border">
+			<thead>
+				<tr>
+				<th>Nom d'étudiant</th>
+				<th>Nom de matières</th>
+					<th>Type d'épreuve</th>
+					<th>Moyenne</th>
+				</tr>
+			</thead>
+			<tbody class="border">
+				{% for note in notes %}
+					<tr>
+						<td>{{note.etudiants}}</td>
+						<td>{{note.matieres}}</td>
+						<td>{{ note.typedeepreuve }}</td>
+						<td>{{ note.moy }}</td>
+						<td>
+							<a type="button" class="btn btn-outline-primary" href="{{ path('app_note_show', {'id': note.id}) }}">
+								<i class="bi bi-eye"></i>
+							</a>
+							<a type="button" class="btn btn-outline-primary" href="{{ path('app_note_edit', {'id': note.id}) }}">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+							<a class="btn btn-outline-primary " onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?')" href="{{path('app_note_delete', {'id': note.id})}}">
+								<i class="bi bi-person-x"></i>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <table class="table mt-2">
-        <thead>
-            <tr>
-                <th>Type d'épreuve</th>
-                <th>Moyenne</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for note in notes %}
-            <tr>
-                <td>{{ note.typedeepreuve }}</td>
-                <td>{{ note.moy }}</td>
-                <td>
-                    <a type="button" class="btn btn-outline-primary" href="{{ path('app_note_show', {'id': note.id}) }}" ><i class="bi bi-eye"></i></a>
-                    <a  type="button" class="btn btn-outline-primary" href="{{ path('app_note_edit', {'id': note.id}) }}"><i class="bi bi-pencil-square"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a type="button" class="btn btn-primary mt-3" href="{{ path('app_note_new') }}">Créer un nouveau</a>
-    </div>
+	</div>
 {% endblock %}

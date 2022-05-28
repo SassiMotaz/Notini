@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Validator\Constraints\Length;
 
 class EtudiantsController extends AbstractController
 {   #[Route('/etudiants', name: 'app_etudiants')]
@@ -95,14 +95,20 @@ class EtudiantsController extends AbstractController
     public function shownote(Etudiants $etudiant ,Request $request ,EtudiantsRepository $sr  ) : Response
     {
         $note = $etudiant->getNotes();
+        $matiers = $etudiant->getMatiers();
         return $this->render('etudiants/shownote.html.twig',
          [
         'etudiants' => $etudiant,
-        'note'=> $note
+        'note'=> $note,
+        'matieres'=>$matiers ,
         ]);
         
     }
-    
+    #[Route('/statistics/{cin}', name: 'etuidant_statistics')]
+    public function statistics(Etudiants $etudiant ,EtudiantsRepository $etudiantsRepository ,): Response
+    {
+        return $this->render('$0.html.twig', []);
+    }
     
 }
 

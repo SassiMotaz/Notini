@@ -40,6 +40,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users')]
     private $userRoles;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $LastName;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $img;
+
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $adr;
+
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
@@ -180,6 +191,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->userRoles->removeElement($userRole)) {
             $userRole->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->LastName;
+    }
+
+    public function setLastName(?string $LastName): self
+    {
+        $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getDateNais(): ?\DateTimeInterface
+    {
+        return $this->DateNais;
+    }
+
+    public function setDateNais(\DateTimeInterface $DateNais): self
+    {
+        $this->DateNais = $DateNais;
+
+        return $this;
+    }
+
+    public function getAdr(): ?string
+    {
+        return $this->adr;
+    }
+
+    public function setAdr(string $adr): self
+    {
+        $this->adr = $adr;
+
+        return $this;
+    }
+
+    public function getDatena(): ?\DateTimeInterface
+    {
+        return $this->datena;
+    }
+
+    public function setDatena(\DateTimeInterface $datena): self
+    {
+        $this->datena = $datena;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

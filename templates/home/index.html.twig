@@ -8,6 +8,19 @@
 			<div class="col-md-5">
             <img src="img/photo2.png "  class="card-img-top" height="auto" width="auto"   alt="...">
 			</div>
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			<div class="col-md-7 text-center mt-5 ">
+				<div class=" text-center mt-5" >
+					<div class="">
+						<h1 class="">Notini</h1>
+                        <h4 class="">Application de gestion des notes</h4>
+						<h5 class="">Application élaborée en fonction du cadre de Symfony aux fins d'approbation de projet.</h5>
+						
+						
+					</div>
+				</div>
+			</div>
+			{% else %}
 			<div class="col-md-7 text-center mt-5 ">
 				<div class=" text-center mt-5" >
 					<div class="">
@@ -18,6 +31,8 @@
 					</div>
 				</div>
 			</div>
+			{% endif %}
 		</div>
 	</div>
+	
 {% endblock %}

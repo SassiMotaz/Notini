@@ -11,11 +11,11 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">Code Inscrit</th>
-					<th scope="col">Nom Etudiant</th>
-					<th scope="col">Prenom Etudiant</th>
-					<th scope="col">CIN Etudiant</th>
-					<th scope="col">Email Etudiant</th>
+					<th scope="col">Code inscrit</th>
+					<th scope="col">Nom Étudiant</th>
+					<th scope="col">Prénom Étudiant</th>
+					<th scope="col">CIN Étudiant</th>
+					<th scope="col">Email Étudiant</th>
 
 				</tr>
 			</thead>
@@ -26,24 +26,19 @@
 					<td>{{etudiants.Prenom}}</td>
 					<td>{{etudiants.CIN}}</td>
 					<td>{{etudiants.email}}</td>
-					{% for item in matiers %}
-						<td>{{item.designation}}</td>
-					{% endfor %}
 					<td>
-					{% for item1 in note %}
-						<td>{{item1.id}}</td>
-					{% endfor %}
-					</td>
-					<td>
-						<button type="button" class="btn btn-outline-primary ">
-							<i href="" class="bi bi-eye"></i>
-						</button>
-						<button type="button" class="btn btn-primary">
-							<i href="" class="bi bi-pencil-square"></i>
-						</button>
-						<button type="button" class="btn btn-outline-danger">
-							<i href="" class="bi bi-person-x"></i>
-						</button>
+						<a class="btn btn-outline-primary " href="{{path('app_show_etudiant' ,{'cin':etudiants.cin})}}">
+								<i class="bi bi-eye"></i>
+							</a>
+							<a class="btn btn-outline-primary " href="{{path('app_edit_etudiant' ,{'cin':etudiants.cin})}}">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+							<a class="btn btn-outline-primary " onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?')" href="{{path('app_delete_etudiant' ,{'cin':etudiants.cin})}}">
+								<i class="bi bi-person-x"></i>
+							</a>
+							<a class="btn btn-outline-primary " href="{{path('app_shownote_etudiant' ,{'cin':etudiants.cin})}}">
+								<i class="bi bi-journal-text"></i>
+							</a>
 					</td>
 				</tr>
 			</tbody>

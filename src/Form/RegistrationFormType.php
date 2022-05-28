@@ -59,6 +59,24 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('LastName',TextType::class,[
+                'label'=>'Nom',
+                'attr'=>[
+                    'class'=>'form-control'
+                ]
+                ])
+                ->add('adr',TextType::class,[
+                    'label'=>'Adresse',
+                    'attr'=>[
+                        'class'=>'form-control'
+                    ]
+                ])
+                ->add('img',TextType::class,[
+                    'label'=>'Image',
+                    'attr'=>[
+                        'class'=>'form-control'
+                    ]
+                ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label'=>'Accepter les conditions ',
                 'attr'=>['class'=>'form-check-input mx-2'],

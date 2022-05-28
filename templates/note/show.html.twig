@@ -9,16 +9,20 @@
     <table class="table">
         <tbody>
             <tr>
+                <th>Nom d'étudiant</th>
+                <td>{{ etudiant.nom }}</td>
+            </tr>
+            <tr>
+            <th>Nom De Matiere</th>
+            <td>{{matiere.designation}}</td>
+            </tr>
+            <tr>
                 <th>Type d'épreuve</th>
                 <td>{{ note.typedeepreuve }}</td>
             </tr>
             <tr>
                 <th>Moyenne</th>
                 <td>{{ note.moy }}</td>
-            </tr>
-            <tr>
-                <th>Nom d'étudiant</th>
-                <td>{{ etudiant.nom }}</td>
             </tr>
         </tbody>
     </table>

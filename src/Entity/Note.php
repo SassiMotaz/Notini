@@ -6,6 +6,9 @@ use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
+/**
+ * @var \App\Entity\Note[] $notes
+ */
 class Note
 {
     #[ORM\Id]

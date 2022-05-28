@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Note;
 use App\Form\NoteType;
+use App\Repository\MatieresRepository;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +19,9 @@ class NoteController extends AbstractController
     #[Route('/', name: 'app_note_index', methods: ['GET'])]
     public function index(NoteRepository $noteRepository): Response
     {
+        $notes = $noteRepository->findAll();
         return $this->render('note/index.html.twig', [
-            'notes' => $noteRepository->findAll(),
+            'notes' => $notes,
         ]);
     }
 
@@ -45,9 +47,11 @@ class NoteController extends AbstractController
     public function show(Note $note): Response
     {
         $etudiant = $note->getEtudiants();
+        $matiers = $note->getMatieres();
         return $this->render('note/show.html.twig', [
             'note' => $note,
             'etudiant'=> $etudiant,
+            'matiere'=>$matiers
         ]);
     }
 

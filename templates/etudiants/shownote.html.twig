@@ -11,22 +11,44 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-                <th>Id matières</th>
+				<th>Code De matieres</th>
                 <th>Nom des matières</th>
                 <th>Type d'épreuve</th>
+				<th>Coefficient des matieres</th>
                 <th>Moyenne des matières</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
+				{% set cof = 0%}
+				{% set var = 0 %}
+				{% set moyeg = 0 %}
+				{% for notes in note %}
+					
+				{% endfor %}
 					{% for notes in note %}
+						{% set var = var +(notes.moy * notes.matieres.coefficient) %}
+						{% set cof = cof + notes.matieres.coefficient %}
                         <tr>
-						<td>{{notes.id}}</td>
+						<td>{{notes.matieres.codemat}}</td>
                         <td>{{notes.matieres}}</td>
                         <td>{{notes.typedeepreuve}}</td>
+						<td>{{notes.matieres.coefficient}}</td>
                         <td>{{notes.moy}}</td>
+						
                         </tr>
 					{% endfor %}
+				</tr>
+				<tr>
+				{% set moye = var / cof %}
+				<td colspan="3">Somme</td>
+				<td>{{cof}}</td>
+				<td >{{var}}</td>
+				
+				</tr>
+				<tr>
+				<td colspan="4" >Moyenne générale</td>
+				<td>{{moye}}</td>
 				</tr>
 			</tbody>
 		</table>

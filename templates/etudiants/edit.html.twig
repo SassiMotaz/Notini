@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Edit{% endblock %}
 
 {% block body %}
 
-<h1 class="container mt-4">Inscription étudiant</h1>
+<h1 class="container mt-4">Modification d'étudiant</h1>
 <div class="container mt-3">
     {{form_start(form)}}
-
     {{form_widget(form)}}
-
-    <input type="submit" class="btn btn-primary mt-2" value="Enregistrer le nouvel étudiant" />
+    <input type="submit" class="btn btn-primary mt-2" value="Modifier" />
     <input type="reset"  class="btn btn-primary mt-2" value="Anuller">
+    <a class="btn btn-primary mt-2 mx-2" href="{{ path('app_etudiants') }}">Retour à la liste</a>
     {{form_end(form)}}
 </div>
 

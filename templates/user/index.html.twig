@@ -1,42 +1,51 @@
-{% extends 'nav.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User index
+{% endblock %}
 
 {% block body %}
-<div class="container mt-5"> 
-  <h1>Liste des utilisateurs</h1>
-    <table class="table mt-5">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Email</th>
-                <th>CIN</th>
-                <th>IsVerified</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.CIN }}</td>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a type="button" class="btn btn-outline-primary" href="{{ path('app_user_show', {'id': user.id}) }}"><i class="bi bi-eye"></i></a>
-                    <a type="button" class="btn btn-outline-primary" href="{{ path('app_user_edit', {'id': user.id}) }}"><i class="bi bi-pencil-square"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="container mt-5">
+		<h1>Liste des utilisateurs</h1>
+		<a type="button" class="btn btn-success mt-2" href="{{ path('app_register') }}">Créer un nouveau</a>
+		<table class="table mt-5 border">
+			<thead>
+				<tr>
+					<th>CIN</th>
+					<th>Prénom</th>
+					<th>Nom</th>
+					<th>E-mail</th>
+					<th>Adresse</th>
+					<th>Vérifié</th>
+				</tr>
+			</thead>
+			<tbody class="border">
+				{% for user in users %}
+					<tr>
+						<td>{{ user.CIN }}</td>
+						<td>{{ user.firstname }}</td>
+						<td>{{ user.lastname }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{user.adr}}</td>
+						<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+						<td>
+							<a type="button" class="btn btn-outline-primary" href="{{ path('app_user_show', {'id': user.id}) }}">
+								<i class="bi bi-eye"></i>
+							</a>
+							<a type="button" class="btn btn-outline-primary" href="{{ path('app_user_edit', {'id': user.id}) }}">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+							<a class="btn btn-outline-primary " onclick="return confirm('Êtes-vous sûr de bien vouloir supprimer cet élément?')" href="{{path('app_user_delete', {'id': user.id}) }}">
+								<i class="bi bi-person-x"></i>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">Aucun enregistrement trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <a type="button" class="btn btn-outline-primary" href="{{ path('app_register') }}">Créer un nouveau</a>
-    </div>
+	</div>
 {% endblock %}

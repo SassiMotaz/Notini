@@ -51,13 +51,7 @@ class EtudiantsType extends AbstractType
                     'class'=>'form-control'
                 ]
             ])
-            ->add('mdp',PasswordType::class,[
-                'label'=>'Mot de passe',
-                'attr'=>[
-                    'placeholder'=>'Mot de passe de Etudiant ',
-                    'class'=>'form-control'
-                ]
-            ])
+            
         ;
     }
 
