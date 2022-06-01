@@ -7,6 +7,9 @@ use App\Entity\Matieres;
 use App\Entity\Etudiants;
 use App\Form\EtudiantsType;
 use App\Repository\EtudiantsRepository;
+use App\Repository\MatieresRepository;
+use App\Repository\NoteRepository;
+use Container5PJKZxY\getNoteService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,11 +107,29 @@ class EtudiantsController extends AbstractController
         ]);
         
     }
-    #[Route('/statistics/{cin}', name: 'etuidant_statistics')]
-    public function statistics(Etudiants $etudiant ,EtudiantsRepository $etudiantsRepository ,): Response
+
+    #[Route('/etudiants/statistics', name: 'etuidant_statistics')]
+    public function statistics( EntityManagerInterface $em ,EtudiantsRepository $etudiantsRepository , MatieresRepository $matieresRepository): Response
     {
-        return $this->render('$0.html.twig', []);
+        $etudiants = $etudiantsRepository->findAll();
+        
+        $etudname=[];
+        $etudcin=[];
+        $matCount=[];        
+        foreach ($etudiants as $etudiant) {
+            $etudname[]= $etudiant->getNom();
+            $etudcin[]= $etudiant->getCin();
+            $matCount[] = count($etudiant->getNotes());
+
+        }
+        return $this->render('etudiants/stat.html.twig',[
+            'etudname'=>json_encode($etudname),
+            'etudcin'=>json_encode($etudcin),
+            'matCount'=>json_encode($matCount),
+        ]);
     }
+
+    
     
 }
 

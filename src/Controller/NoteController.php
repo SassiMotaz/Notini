@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Etudiants;
 use App\Entity\Note;
 use App\Form\NoteType;
+use App\Repository\EtudiantsRepository;
 use App\Repository\MatieresRepository;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,4 +83,5 @@ class NoteController extends AbstractController
 
         return $this->redirectToRoute('app_note_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }
